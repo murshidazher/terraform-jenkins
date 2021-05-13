@@ -419,4 +419,4 @@ Right now at this moment we would have two webservers running in the public subn
 
 ## License
 
-MIT (c) 2021 Murshid Azher
+[MIT](https://github.com/murshidazher/terraform-jenkins/blob/main/README.md) © Murshid Azher.
