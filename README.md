@@ -45,6 +45,7 @@
   - [Realtime Use cases With Lambda & Terraform](#realtime-use-cases-with-lambda--terraform)
   - [Jenkins and terraform integration](#jenkins-and-terraform-integration)
   - [Integrating Ansible with Terraform](#integrating-ansible-with-terraform)
+  - [Tools](#tools)
   - [License](#license)
 
 ## Installing terraform manually
@@ -416,6 +417,13 @@ Right now at this moment we would have two webservers running in the public subn
 
 
 ## Integrating Ansible with Terraform
+
+## Tools
+
+- jenkins
+- terraform
+- ansible
+- git
 
 ## License
 
