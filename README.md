@@ -18,4 +18,14 @@ We will occasionally use the `terraform init` at the start of a project and in s
 
 ```sh
 > terraform init
+> terraform apply
 ```
+
+## Terraform Outputs & Interpolations
+
+### Interpolations
+
+`${}` this is an interpolations in terraform. We can check the values returned back we can see the [reference attributes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#attributes-reference). Example of this would be, `${aws_vpc.my_vpc.cidr_block}`.
+
+
+## Terraform Local State Files
