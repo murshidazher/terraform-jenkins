@@ -1,22 +1,25 @@
 provider "aws" {
-  region = "ap-south-1"
+  region = var.region
 }
 
 terraform {
   backend "s3" {
-    bucket = "javahome-tf-1234567" # create the s3 bucket manually
-    key    = "terraform.tfstate"
-    region = "ap-south-1"
+    bucket         = "javahome-tf-1234567" # create the s3 bucket manually
+    key            = "terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "javahome-tf"
   }
 }
 
 resource "aws_vpc" "my_vpc" {
-  cidr_block       = "10.0.0.0/16"
+  count            = terraform.workspace == "dev" ? 0 : 1
+  cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
 
   tags = {
     Name        = "JavaHomeVPC"
-    Environment = "Dev"
+    Environment = "${terraform.workspace}"
+    Location    = "India"
   }
 }
 
