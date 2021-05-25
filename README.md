@@ -188,6 +188,14 @@ resource "aws_vpc" "my_vpc" {
 
 ## Setting Up Networking For Our Applications
 
+> Look into the [02.networking]()
+
+```sh
+> terraform init
+> terraform workspace new dev
+> terraform workspace new prod
+```
+
 ## EC2 Instances, ELB and IAM Roles - InProgress
 
 ## EC2 Auto Scaling
