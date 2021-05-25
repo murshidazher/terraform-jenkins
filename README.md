@@ -164,3 +164,24 @@ resource "aws_vpc" "my_vpc" {
 ```
 
 ## Terraform Local Variables
+
+If we have an expression repeatedly used inside our code we can use them as a part of our local variable and make use of them. In the future, if we need to change it we can change it in a single place. You use the `local` body to create a local variable.
+
+```
+locals {
+  vpc_name = terraform.workspace == "dev" ? "javahome-dev" : "javahome-prod"
+}
+
+
+resource "aws_vpc" "my_vpc" {
+  count            = terraform.workspace == "dev" ? 0 : 1
+  cidr_block       = var.vpc_cidr
+  instance_tenancy = "default"
+
+  tags = {
+    Name        = "${local.vpc_name}"
+    Environment = "${terraform.workspace}"
+    Location    = "India"
+  }
+}
+```
