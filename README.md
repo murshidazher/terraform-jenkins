@@ -21,19 +21,19 @@ We will occasionally use the `terraform init` at the start of a project and in s
 > terraform apply
 ```
 
-## Terraform Outputs & Interpolations
+### Terraform Outputs & Interpolations
 
-### Interpolations
+#### Interpolations
 
 `${}` this is an interpolations in terraform. We can check the values returned back we can see the [reference attributes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#attributes-reference). Example of this would be, `${aws_vpc.my_vpc.cidr_block}`.
 
-## Terraform Local State Files
+### Terraform Local State Files
 
 If the local `terraform.tfstate` file is deleted then all the resources created using this terraform file would lose its connection meaning that the resources would be still available in the aws account but terraform wont have ny control over it.
 
 As a best practice never tamper with this file and we should preserve it.
 
-## Terraform Remote State File
+### Terraform Remote State File
 
 > The terraform s3 backend [documentation](https://www.terraform.io/docs/language/settings/backends/s3.html). Create the s3 bucket manually or use another terraform file to create it.
 
@@ -51,7 +51,7 @@ We can delete the local files afterwards since it wont be used afterwards
 - We need to enable `versioning` so we can go back to a previous version of the state if needed.
 - We also need to enable `encryption` so that if are using RDS, the RDS password would be in the `tfstate` so encryption will prevent the password being out in the open.
 
-## Terraform Locking Remote State Files
+### Terraform Locking Remote State Files
 
 > Name of DynamoDB table is used for [state locking](https://www.terraform.io/docs/language/settings/backends/s3.html#dynamodb-state-locking)
 
@@ -70,7 +70,7 @@ type: string
 
 Again we need to use terraform init, to reinitialize the lock. If we make an update we will have a dynamodb entry and after its successful there wont be any lock to it.
 
-## Terraform Variables
+### Terraform Variables
 
 If a type isn't given then the type is inferred by the given default value. If we need to change the value on runtime,
 
@@ -85,7 +85,7 @@ We can also use any filename with the `tfvars` extension to pass environment and
 > terraform apply -var-file=dev.tfvars
 ```
 
-## Terraform Workspace
+### Terraform Workspace
 
 Mantaining multiple environment in terraform can be tedious, what if we need a `dev` and `prod` environment with same configuration but maintain different varaibles.
 
@@ -127,7 +127,7 @@ resource "aws_vpc" "my_vpc" {
 }
 ```
 
-## Terraform Loops
+### Terraform Loops
 
 What if we need to create 10 VPC instances, we can use the loops. We can use the `count` attribute to loop.
 
@@ -145,7 +145,7 @@ resource "aws_vpc" "my_vpc" {
 }
 ```
 
-## Terraform Conditions
+### Terraform Conditions
 
 What if certain configuration should be used only in `dev` and not in production then we can use the conditions. What if we only need to create a vpc in `prod`, `count = 0` means doesn't create the vpc.
 
@@ -163,7 +163,7 @@ resource "aws_vpc" "my_vpc" {
 }
 ```
 
-## Terraform Local Variables
+### Terraform Local Variables
 
 If we have an expression repeatedly used inside our code we can use them as a part of our local variable and make use of them. In the future, if we need to change it we can change it in a single place. You use the `local` body to create a local variable.
 
@@ -185,3 +185,26 @@ resource "aws_vpc" "my_vpc" {
   }
 }
 ```
+
+## Setting Up Networking For Our Applications
+
+## EC2 Instances, ELB and IAM Roles - InProgress
+
+## EC2 Auto Scaling
+
+## Route53 For ELB
+
+## RDS - Relational Database Service
+
+## ALB - Application Load Balancer
+
+## Terraform and Lambda functions
+
+## Terraform - Build reusable modules
+
+## Realtime Use cases With Lambda & Terraform
+
+## Jenkins and terraform integration
+
+
+## Integrating Ansible with Terraform
