@@ -297,6 +297,39 @@ We have to secure NATS instances using security groups.
 
 Since `user-data` scripts are launch time scripts when we update it then we will be destroying the existing instances and creating new instances.
 
+### IAM Roles
+
+We need to first create an `assume policy` > `iam policy` > `iam role`. Since, we need to make this file dynamic at runtime we need to make use of terraform [template files](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file).
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1563521329921",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "${s3_bucket_arn}"
+    }
+  ]
+}
+```
+
+```tf
+data "template_file" "s3_web_policy" {
+  template = file("scripts/iam/web-ec2-policy.json")
+  vars = {
+    s3_bucket_arn = "arn:aws:s3:::${var.my_app_s3_bucket}/*"
+  }
+}
+```
+
+We need to call the rendered so that we get the rendered json `data.template_file.s3_web_policy.rendered`. 
+
+We also need to create an instance profile to attach iam policies to an instance.
+
 ## EC2 Auto Scaling
 
 ## Route53 For ELB
