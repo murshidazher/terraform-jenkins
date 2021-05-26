@@ -283,11 +283,11 @@ We've to configure internet access to private subnets, we are going to use NAT i
 
 AMI ids are specific to regions so we cant use the same ami id for all regions. So add all the regions and mapping ami in the variables.
 
-Next, we need to create a route table and add NATs instance to the route table.
+Next, we need to create a route table and add NATs instance to the route table. Read this [doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association).
 
 ### Configure NAT Instance - Security Group
 
-
+We have to secure NATS instances using security groups.
 
 
 ## EC2 Instances, ELB and IAM Roles - InProgress
