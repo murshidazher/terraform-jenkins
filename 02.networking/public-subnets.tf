@@ -13,3 +13,12 @@ resource "aws_subnet" "public" {
     Name = "PublicSubnet-${count.index + 1}"
   }
 }
+
+# Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.my_app.id
+
+  tags = {
+    Name = "JavaHomeIgw"
+  }
+}
