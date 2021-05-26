@@ -36,3 +36,11 @@ resource "aws_route_table" "prt" {
     Name = "JavaHomePRT"
   }
 }
+
+# Subnet and Route table association
+# create multiple association to all subnets by using count
+resource "aws_route_table_association" "pub_sub_asociation" {
+  count          = length(local.az_names)
+  subnet_id      = local.pub_sub_ids[count.index]
+  route_table_id = aws_route_table.prt.id
+}

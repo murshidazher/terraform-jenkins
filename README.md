@@ -224,7 +224,7 @@ cidrsubnet(var.vpc_cidr, 8, count.index) # looks like 10.20.1.0/24 -> 10.20.2.0/
 
 > Search for `terraform route table` in google and click the first terraform link to docs.
 
-```sh
+```tf
 resource "aws_route_table" "prt" {
   vpc_id = "${aws_vpc.my_app.id}"
 
@@ -241,7 +241,18 @@ resource "aws_route_table" "prt" {
 
 #### Subnet Association
 
+> Google for `terraform subnet association`.
+
 We need to associate the route table with public subnets.
+
+
+```tf
+resource "aws_route_table_association" "pub_sub_asociation" {
+  count          = "${length(local.az_names)}"
+  subnet_id      = "${local.pub_sub_ids[count.index]}"
+  route_table_id = "${aws_route_table.prt.id}"
+}
+```
 
 ### Private Subnet 
 
