@@ -1,12 +1,14 @@
-# Mastering Terraform - Integrating with Jenkins and Ansible
+# [terraform-jenkins](https://github.com/murshidazher/terraform-jenkins)
 
-> The end-to-end workflow with terraform, jenkins and ansible playbooks
+> The end-to-end workflow with terraform, jenkins and ansible playbooks 🔥🔥🔥
 
-- This has all the terraform and jenkins workflow, once you have a full infrastructure as code using terraform you would use jenkins to deploy them to their individual environments. We can write jenkins pipeline scripts to configure these deployment as well as ansible playbooks which will be integrated with jenkins and terraform. `SVM` is used to see the changes in the infrastructure overtime.
+- This has all the terraform and jenkins workflow, once you have a full infrastructure as code using terraform you would use jenkins to deploy them to their individual environments.
+- We can write jenkins pipeline scripts to configure these deployment as well as ansible playbooks which will be integrated with jenkins and terraform.
+- This contains step by step instructions and at the end of this README you will find yourself with a fully automated terraform workflow.
 
 ## Table of Contents
 
-- [Mastering Terraform - Integrating with Jenkins and Ansible](#mastering-terraform---integrating-with-jenkins-and-ansible)
+- [terraform-jenkins](#terraform-jenkins)
   - [Table of Contents](#table-of-contents)
   - [Installing terraform manually](#installing-terraform-manually)
   - [Up & Running](#up--running)
@@ -389,7 +391,12 @@ We need to attach this security group to the ec2 instance and we can attach mult
 
 ### Elastic Load Balancer with EC2
 
+> Google for `terraform elb` and you would find [this link](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elb).
+
 Right now at this moment we would have two webservers running in the public subnets. We need to keeps these two instances behind a elastic load balancer.
+
+
+> 💡 Add `ssl_certificate_id` and cert if required in production to [elb](./02.networking/elb.tf).
 
 ## EC2 Auto Scaling
 
