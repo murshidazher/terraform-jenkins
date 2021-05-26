@@ -254,8 +254,20 @@ resource "aws_route_table_association" "pub_sub_asociation" {
 }
 ```
 
-### Private Subnet 
+### Private Subnet
 
+Coming to private subnets we can leave like this `count = length(local.az_names)`
+but this will create a private subnet for each public subnet. But we want to create only need to create `2` private subnets, so that if we are configuring RDS and need multi-AZ we maximum need only 2 private subnets.
+
+- We are only taking 2 elements from the list.
+- We can pick the cidr blocks for subnets after the public subnets were left off.
+- We've a default route table for it so that the internet gateway as it is private by default.
+
+```tf
+count             = length(slice(local.az_names, 0, 2))
+vpc_id            = aws_vpc.my_app.id
+cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index + length(local.az_names))
+```
 
 ### Enable Subnet Settings Fot Auto Assigning Public Ip
 
