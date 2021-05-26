@@ -4,6 +4,47 @@
 
 - This has all the terraform and jenkins workflow, once you have a full infrastructure as code using terraform you would use jenkins to deploy them to their individual environments. We can write jenkins pipeline scripts to configure these deployment as well as ansible playbooks which will be integrated with jenkins and terraform. `SVM` is used to see the changes in the infrastructure overtime.
 
+## Table of Contents
+
+- [Mastering Terraform - Integrating with Jenkins and Ansible](#mastering-terraform---integrating-with-jenkins-and-ansible)
+  - [Table of Contents](#table-of-contents)
+  - [Installing terraform manually](#installing-terraform-manually)
+  - [Up & Running](#up--running)
+    - [Terraform Outputs & Interpolations](#terraform-outputs--interpolations)
+      - [Interpolations](#interpolations)
+    - [Terraform Local State Files](#terraform-local-state-files)
+    - [Terraform Remote State File](#terraform-remote-state-file)
+    - [Terraform Locking Remote State Files](#terraform-locking-remote-state-files)
+    - [Terraform Variables](#terraform-variables)
+    - [Terraform Workspace](#terraform-workspace)
+    - [Terraform Loops](#terraform-loops)
+    - [Terraform Conditions](#terraform-conditions)
+    - [Terraform Local Variables](#terraform-local-variables)
+  - [Setting Up Networking For Our Applications](#setting-up-networking-for-our-applications)
+    - [Data sources](#data-sources)
+    - [Associating Public Subnet with Internet Gateway](#associating-public-subnet-with-internet-gateway)
+      - [Route Table Creation](#route-table-creation)
+      - [Subnet Association](#subnet-association)
+    - [Private Subnet](#private-subnet)
+    - [Enable Subnet Settings Fot Auto Assigning Public Ip](#enable-subnet-settings-fot-auto-assigning-public-ip)
+    - [Configure NAT instance](#configure-nat-instance)
+    - [Configure NAT Instance - Security Group](#configure-nat-instance---security-group)
+  - [EC2 Instances, ELB and IAM Roles - InProgress](#ec2-instances-elb-and-iam-roles---inprogress)
+    - [User data](#user-data)
+    - [IAM Roles](#iam-roles)
+    - [Create a Security Group for EC2](#create-a-security-group-for-ec2)
+    - [Elastic Load Balancer with EC2](#elastic-load-balancer-with-ec2)
+  - [EC2 Auto Scaling](#ec2-auto-scaling)
+  - [Route53 For ELB](#route53-for-elb)
+  - [RDS - Relational Database Service](#rds---relational-database-service)
+  - [ALB - Application Load Balancer](#alb---application-load-balancer)
+  - [Terraform and Lambda functions](#terraform-and-lambda-functions)
+  - [Terraform - Build reusable modules](#terraform---build-reusable-modules)
+  - [Realtime Use cases With Lambda & Terraform](#realtime-use-cases-with-lambda--terraform)
+  - [Jenkins and terraform integration](#jenkins-and-terraform-integration)
+  - [Integrating Ansible with Terraform](#integrating-ansible-with-terraform)
+  - [License](#license)
+
 ## Installing terraform manually
 
 ```sh
@@ -368,3 +409,7 @@ Right now at this moment we would have two webservers running in the public subn
 
 
 ## Integrating Ansible with Terraform
+
+## License
+
+MIT (c) 2021 Murshid Azher
