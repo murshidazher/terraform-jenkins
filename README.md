@@ -424,6 +424,12 @@ Now, we can remove the `web-ec2.tf` script since its no longer needed to create 
 
 ## Route53 For ELB
 
+> 💡 We need to add `ssl` certification to this domain name too.
+
+Since we need our clients to access the application with friendly domain names we can use the `Route53` service to integrate `ELB` with friendly domain name.
+
+We need to get a domain from `route53` example `abc123xyz.tk` and then associate the elb with it. Its should be a public domain so it could be used to access it.
+
 ## RDS - Relational Database Service
 
 ## ALB - Application Load Balancer

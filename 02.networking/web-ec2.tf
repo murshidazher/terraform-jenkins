@@ -1,3 +1,8 @@
+/*
+  ONLY FOR REFERENCES. REMOVE THIS IN PRODUCTION.
+
+  Scirpt is no longer needed since its managed by autoscaling.tf for launching instance.
+*/
 locals {
   env_tag = {
     Environment = "${terraform.workspace}" # we need to add env dynamically with a variable
