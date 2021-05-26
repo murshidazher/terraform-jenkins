@@ -412,8 +412,15 @@ We need to have some ec2 key-pair to login to the instance incase of trouble sho
 
 Go to the ec2 instance and check the key-pair you would see the key called `javahome-web`.
 
-
 ## EC2 Auto Scaling
+
+> Configurations are found in [autoscaling.tf](02.networking/autoscaling.tf)
+
+Next, we need to create auto-scaling for high availability. We also need to create a key-pair for this ssh which is created previously.
+
+You can check the effect on `aws console `> `EC2 management console` > `launch config` and `auto scaling groups`.
+
+Now, we can remove the `web-ec2.tf` script since its no longer needed to create ec2 instances manually since its managed by the autoscaling group.
 
 ## Route53 For ELB
 
