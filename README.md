@@ -289,8 +289,13 @@ Next, we need to create a route table and add NATs instance to the route table. 
 
 We have to secure NATS instances using security groups.
 
-
 ## EC2 Instances, ELB and IAM Roles - InProgress
+
+> Deploying EC2 instances into the public subnets and later using user data we can install apache webserver. Read more on [terraform interpolation docs](https://www.terraform.io/docs/configuration-0-11/interpolation.html#supported-built-in-functions).
+
+### User data
+
+Since `user-data` scripts are launch time scripts when we update it then we will be destroying the existing instances and creating new instances.
 
 ## EC2 Auto Scaling
 
