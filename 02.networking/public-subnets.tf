@@ -22,3 +22,17 @@ resource "aws_internet_gateway" "igw" {
     Name = "JavaHomeIgw"
   }
 }
+
+# Public Route table (PRT)
+resource "aws_route_table" "prt" {
+  vpc_id = aws_vpc.my_app.id
+
+  route {
+    cidr_block = "0.0.0.0/0" # internet port
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "JavaHomePRT"
+  }
+}

@@ -218,6 +218,41 @@ Generates cidr blocks dynamically by adding 8 bits,
 cidrsubnet(var.vpc_cidr, 8, count.index) # looks like 10.20.1.0/24 -> 10.20.2.0/24 ....
 ```
 
+### Associating Public Subnet with Internet Gateway
+
+#### Route Table Creation
+
+> Search for `terraform route table` in google and click the first terraform link to docs.
+
+```sh
+resource "aws_route_table" "prt" {
+  vpc_id = "${aws_vpc.my_app.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.igw.id}"
+  }
+
+  tags = {
+    Name = "JavaHomePRT"
+  }
+}
+```
+
+#### Subnet Association
+
+We need to associate the route table with public subnets.
+
+### Private Subnet 
+
+
+### Enable Subnet Settings Fot Auto Assigning Public Ip
+
+### Configure NAT instance
+
+### Configure NAT Instance - Security Group
+
+
 ## EC2 Instances, ELB and IAM Roles - InProgress
 
 ## EC2 Auto Scaling
