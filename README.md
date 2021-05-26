@@ -271,9 +271,23 @@ cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index + length(local.az_na
 
 ### Enable Subnet Settings Fot Auto Assigning Public Ip
 
+Use `map_public_ip_on_launch` to auto assign ip
+
+```tf
+map_public_ip_on_launch = true
+```
+
 ### Configure NAT instance
 
+We've to configure internet access to private subnets, we are going to use NAT instances without NAT gateway which can also be used.
+
+AMI ids are specific to regions so we cant use the same ami id for all regions. So add all the regions and mapping ami in the variables.
+
+Next, we need to create a route table and add NATs instance to the route table.
+
 ### Configure NAT Instance - Security Group
+
+
 
 
 ## EC2 Instances, ELB and IAM Roles - InProgress

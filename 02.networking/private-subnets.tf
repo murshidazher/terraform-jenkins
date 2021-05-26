@@ -7,3 +7,16 @@ resource "aws_subnet" "private" {
     Name = "PrivateSubnet-${count.index + 1}"
   }
 }
+
+# NAT instances
+resource "aws_instance" "nat" {
+  ami               = var.nat_amis[var.region]
+  instance_type     = "t2.micro"
+  subnet_id         = local.pub_sub_ids[0]
+  source_dest_check = false
+  # associate_public_ip_address = true # we dont need this since we auto-assigned ip address
+  vpc_security_group_ids = ["${aws_security_group.nat_sg.id}"]
+  tags = {
+    Name = "JavahomeNat"
+  }
+}
