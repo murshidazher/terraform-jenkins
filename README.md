@@ -196,6 +196,28 @@ resource "aws_vpc" "my_vpc" {
 > terraform workspace new prod
 ```
 
+For high availability, we need multiple subnets spanning multiple regions and with an internet gateway so its accessible. Search for `terraform subnet` in [google](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet).
+
+### Data sources
+
+> We create a `datasources.tf` file. We could access the data from datasource by using the `data.{datasource_name}.{type}`
+
+We can use data sources to dynamically fetch availability zones. Data sources it available such that we can import certain information which are available outside the terraform.
+
+Example, to get the recently created ami source we can use this data source,
+
+<img src="./docs/1.png" />
+
+To create subnets for availability zones in the specified regions we can use this,
+
+<img src="./docs/2.png" />
+
+Generates cidr blocks dynamically by adding 8 bits,
+
+```tf
+cidrsubnet(var.vpc_cidr, 8, count.index) # looks like 10.20.1.0/24 -> 10.20.2.0/24 ....
+```
+
 ## EC2 Instances, ELB and IAM Roles - InProgress
 
 ## EC2 Auto Scaling
