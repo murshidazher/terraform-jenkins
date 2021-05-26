@@ -330,6 +330,26 @@ We need to call the rendered so that we get the rendered json `data.template_fil
 
 We also need to create an instance profile to attach iam policies to an instance.
 
+### Create a Security Group for EC2
+
+We need to add our own ips to the ssh because in production we should limit the ssh access from the outside.
+
+```tf
+# ssh
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # in production, we shouldn't do this the cidr block should be our own ips so no outside access
+  }
+```
+
+We need to attach this security group to the ec2 instance and we can attach multiple of it so it needs to be a list.
+
+### Elastic Load Balancer with EC2
+
+Right now at this moment we would have two webservers running in the public subnets. We need to keeps these two instances behind a elastic load balancer.
+
 ## EC2 Auto Scaling
 
 ## Route53 For ELB
