@@ -36,6 +36,7 @@
     - [IAM Roles](#iam-roles)
     - [Create a Security Group for EC2](#create-a-security-group-for-ec2)
     - [Elastic Load Balancer with EC2](#elastic-load-balancer-with-ec2)
+    - [EC2 key pair](#ec2-key-pair)
   - [EC2 Auto Scaling](#ec2-auto-scaling)
   - [Route53 For ELB](#route53-for-elb)
   - [RDS - Relational Database Service](#rds---relational-database-service)
@@ -398,6 +399,19 @@ Right now at this moment we would have two webservers running in the public subn
 
 
 > 💡 Add `ssl_certificate_id` and cert if required in production to [elb](./02.networking/elb.tf).
+
+### EC2 key pair
+
+We need to have some ec2 key-pair to login to the instance incase of trouble shooting and maintenance. We need to create a public and private key pair.
+
+```sh
+> ssh-keygen
+> cat /Users/murshidazher/.ssh/id_rsa.pub # copy it and create a new file `scripts/web.pub` 
+> terraform apply
+```
+
+Go to the ec2 instance and check the key-pair you would see the key called `javahome-web`.
+
 
 ## EC2 Auto Scaling
 

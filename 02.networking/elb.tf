@@ -30,7 +30,7 @@ resource "aws_elb" "javahome_elb" {
   }
 }
 
-
+# open port 80 from elb to access to the service
 resource "aws_security_group" "elb_sg" {
   name        = "elb_sg"
   description = "Allow traffic for web apps on elb"

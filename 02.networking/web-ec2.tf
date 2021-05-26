@@ -17,3 +17,8 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = ["${aws_security_group.web_sg.id}"]
   key_name               = aws_key_pair.web.key_name
 }
+
+resource "aws_key_pair" "web" {
+  key_name   = "javahome-web"
+  public_key = file("scripts/web.pub")
+}
