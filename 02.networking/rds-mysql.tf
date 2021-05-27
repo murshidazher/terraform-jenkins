@@ -1,17 +1,17 @@
 resource "aws_db_instance" "javahome" {
-  identifier           = "javahome-${terraform.workspace}"
-  allocated_storage    = 20 # default
-  storage_type         = "gp2"
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t2.micro"
-  name                 = "javahome"
-  username             = "javahome"
-  password             = "Admin4321"
-  parameter_group_name = "default.mysql5.7"
-  db_subnet_group_name = aws_db_subnet_group.javahome.id
-  #backup_window              = "01:00-01:30"
-  #auto_minor_version_upgrade = false
+  identifier                 = "javahome-${terraform.workspace}"
+  allocated_storage          = 20 # default
+  storage_type               = "gp2"
+  engine                     = "mysql"
+  engine_version             = "5.7"
+  instance_class             = "db.t2.micro"
+  name                       = "javahome"
+  username                   = "javahome"
+  password                   = "Admin4321"
+  parameter_group_name       = "default.mysql5.7"
+  db_subnet_group_name       = aws_db_subnet_group.javahome.id
+  backup_window              = "01:00-01:30"
+  auto_minor_version_upgrade = false
 }
 
 resource "aws_db_subnet_group" "javahome" {

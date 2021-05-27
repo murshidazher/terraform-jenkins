@@ -42,9 +42,6 @@
   - [RDS - Relational Database Service](#rds---relational-database-service)
     - [Create RDS Instance](#create-rds-instance)
     - [Create Private subnet group for RDS](#create-private-subnet-group-for-rds)
-    - [Configure Security Group for RDS](#configure-security-group-for-rds)
-    - [Automatic Backup and Upgrade for RDS](#automatic-backup-and-upgrade-for-rds)
-    - [RDS Autoscaling Storage](#rds-autoscaling-storage)
   - [ALB - Application Load Balancer](#alb---application-load-balancer)
   - [Terraform and Lambda functions](#terraform-and-lambda-functions)
   - [Terraform - Build reusable modules](#terraform---build-reusable-modules)
@@ -443,13 +440,11 @@ Ideally most of the values of the RDS instance would be set using variables sinc
 
 ### Create Private subnet group for RDS
 
+> 💡 Autoscaling can also be enabled if we're running out of storage but for this demonstration I've left this part out.
+
 We will create a private subnet group and place the relational database inside it.
 
-### Configure Security Group for RDS
-
-### Automatic Backup and Upgrade for RDS
-
-### RDS Autoscaling Storage
+Ingress by default mysql runs on `3306`. If you need to access rds from organization add those `security_groups` as comma inside ingress. Disable minor version upgrades and enable backup.
 
 ## ALB - Application Load Balancer
 
