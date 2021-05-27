@@ -443,6 +443,8 @@ Ideally most of the values of the RDS instance would be set using variables sinc
 
 ### Create Private subnet group for RDS
 
+We will create a private subnet group and place the relational database inside it.
+
 ### Configure Security Group for RDS
 
 ### Automatic Backup and Upgrade for RDS
