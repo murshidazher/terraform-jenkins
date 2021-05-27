@@ -40,6 +40,11 @@
   - [EC2 Auto Scaling](#ec2-auto-scaling)
   - [Route53 For ELB](#route53-for-elb)
   - [RDS - Relational Database Service](#rds---relational-database-service)
+    - [Create RDS Instance](#create-rds-instance)
+    - [Create Private subnet group for RDS](#create-private-subnet-group-for-rds)
+    - [Configure Security Group for RDS](#configure-security-group-for-rds)
+    - [Automatic Backup and Upgrade for RDS](#automatic-backup-and-upgrade-for-rds)
+    - [RDS Autoscaling Storage](#rds-autoscaling-storage)
   - [ALB - Application Load Balancer](#alb---application-load-balancer)
   - [Terraform and Lambda functions](#terraform-and-lambda-functions)
   - [Terraform - Build reusable modules](#terraform---build-reusable-modules)
@@ -431,6 +436,18 @@ Since we need our clients to access the application with friendly domain names w
 We need to get a domain from `route53` example `abc123xyz.tk` and then associate the elb with it. Its should be a public domain so it could be used to access it.
 
 ## RDS - Relational Database Service
+
+### Create RDS Instance
+
+Ideally most of the values of the RDS instance would be set using variables since it depends on the environment. Moreover, the database password needs to entered during the runtime too and not hardcoded.
+
+### Create Private subnet group for RDS
+
+### Configure Security Group for RDS
+
+### Automatic Backup and Upgrade for RDS
+
+### RDS Autoscaling Storage
 
 ## ALB - Application Load Balancer
 
