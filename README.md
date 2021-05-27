@@ -448,6 +448,13 @@ Ingress by default mysql runs on `3306`. If you need to access rds from organiza
 
 ## ALB - Application Load Balancer
 
+- In place of ELB, we can also use the ALB. The scenario for ALB is if we have micro-services instances were each instances is grouped together. Where we route the requests based on which port numbers the request is coming to which is defined in the listener.
+- With one ALB, we can load balance all the request in our application.
+
+<img src="./docs/3.png">
+
+Before we provision alb, we need to create target groups. Then attach ec2 instances to the created target group.
+
 ## Terraform and Lambda functions
 
 ## Terraform - Build reusable modules
