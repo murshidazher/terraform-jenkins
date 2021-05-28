@@ -29,6 +29,7 @@ resource "aws_lb" "javahome" {
 }
 
 
+# forward the request which comes to port number 80 to target group
 resource "aws_lb_listener" "web_tg" {
   load_balancer_arn = "${aws_lb.javahome.arn}"
   port              = "80"

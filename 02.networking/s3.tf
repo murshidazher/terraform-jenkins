@@ -7,3 +7,14 @@ resource "aws_s3_bucket" "my_bucket" {
     Environment = "${terraform.workspace}"
   }
 }
+
+resource "aws_s3_bucket" "alb_access_logs" {
+  bucket = "javahome-alb-access-logs"
+  policy = data.template_file.javahome.rendered
+  acl    = "private"
+  region = var.region
+  tags = {
+    Name        = "jalb-access-logs"
+    Environment = "${terraform.workspace}"
+  }
+}

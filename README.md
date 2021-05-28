@@ -43,6 +43,7 @@
     - [Create RDS Instance](#create-rds-instance)
     - [Create Private subnet group for RDS](#create-private-subnet-group-for-rds)
   - [ALB - Application Load Balancer](#alb---application-load-balancer)
+    - [ALB Access Logs - S3 buckets](#alb-access-logs---s3-buckets)
   - [Terraform and Lambda functions](#terraform-and-lambda-functions)
   - [Terraform - Build reusable modules](#terraform---build-reusable-modules)
   - [Realtime Use cases With Lambda & Terraform](#realtime-use-cases-with-lambda--terraform)
@@ -453,7 +454,11 @@ Ingress by default mysql runs on `3306`. If you need to access rds from organiza
 
 <img src="./docs/3.png">
 
-Before we provision alb, we need to create target groups. Then attach ec2 instances to the created target group.
+Before we provision alb, we need to create target groups. Then attach ec2 instances to the created target group. All `alb` logs would be sent to this bucket by enabling s3 bucket policies.
+
+### ALB Access Logs - S3 buckets
+
+We will be creating a alb bucket 
 
 ## Terraform and Lambda functions
 
