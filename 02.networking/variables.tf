@@ -4,6 +4,12 @@ variable "vpc_cidr" {
   default     = "10.20.0.0/16"
 }
 
+variable "access_logs_bucket" {
+  description = "Choose s3 bucket name for ALB logs"
+  type        = string
+  default     = "javahome-alb-access-logs"
+}
+
 variable "region" {
   description = "Choose region for your stack"
   type        = string
