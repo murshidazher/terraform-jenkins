@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "my_bucket" {
 }
 
 resource "aws_s3_bucket" "alb_access_logs" {
-  bucket = "javahome-alb-access-logs"
+  bucket = var.access_logs_bucket
   policy = data.template_file.javahome.rendered
   acl    = "private"
   region = var.region

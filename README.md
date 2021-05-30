@@ -458,7 +458,13 @@ Before we provision alb, we need to create target groups. Then attach ec2 instan
 
 ### ALB Access Logs - S3 buckets
 
-We will be creating a alb bucket 
+We will be creating a alb bucket.
+
+To run only a simple script then we can use the target
+
+```sh
+> terraform apply -auto-approve --target=aws_s3_bucket.alb_access_logs
+```
 
 ## Terraform and Lambda functions
 
