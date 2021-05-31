@@ -468,6 +468,9 @@ To run only a simple script then we can use the target
 
 ## Terraform and Lambda functions
 
+Deploying lambda using terraform. Lambda function takes two arguments `events` and `context`. This demonstrates how to deploy lambda function using terraform code.
+
+- [terraform iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)
 ## Terraform - Build reusable modules
 
 ## Realtime Use cases With Lambda & Terraform
