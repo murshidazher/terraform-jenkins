@@ -472,6 +472,8 @@ Deploying lambda using terraform. Lambda function takes two arguments `events` a
 
 - [terraform iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)
 - Use [aws policy generator](https://awspolicygen.s3.amazonaws.com/policygen.html) online tool to get the policies.
+- [terraform lambda func](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)
+- We need to create a [terraform archive](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/archive_file) zip file for hosting function.
 
 
 ## Terraform - Build reusable modules
