@@ -2,7 +2,8 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": ["ec2:Describe*"],
+      "Sid": "Stmt1622712225411",
+      "Action": "logs:*",
       "Effect": "Allow",
       "Resource": "*"
     }
