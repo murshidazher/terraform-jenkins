@@ -478,6 +478,10 @@ Deploying lambda using terraform. Lambda function takes two arguments `events` a
 
 ## Terraform - Build reusable modules
 
+Terraform Module is a folder containing terraform scripts so its organizable and re-usable. Re-use modules in different environments.
+
+- [vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) and [subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet)
+
 ## Realtime Use cases With Lambda & Terraform
 
 ## Jenkins and terraform integration
