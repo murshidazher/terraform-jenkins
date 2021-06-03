@@ -421,7 +421,7 @@ Go to the ec2 instance and check the key-pair you would see the key called `java
 
 Next, we need to create auto-scaling for high availability. We also need to create a key-pair for this ssh which is created previously.
 
-You can check the effect on `aws console `> `EC2 management console` > `launch config` and `auto scaling groups`.
+You can check the effect on `aws console`> `EC2 management console` > `launch config` and `auto scaling groups`.
 
 Now, we can remove the `web-ec2.tf` script since its no longer needed to create ec2 instances manually since its managed by the autoscaling group.
 
@@ -482,10 +482,10 @@ Deploying lambda using terraform. Lambda function takes two arguments `events` a
 
 ## Tools
 
-- jenkins
-- terraform
-- ansible
-- git
+- [jenkins](https://www.jenkins.io/)
+- [terraform](https://www.terraform.io/docs/index.html)
+- [ansible](https://www.ansible.com/)
+- [git](https://git-scm.com/)
 
 ## License
 
