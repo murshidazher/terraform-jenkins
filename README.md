@@ -48,7 +48,19 @@
   - [Terraform - Build reusable modules](#terraform---build-reusable-modules)
   - [Realtime Use cases With Lambda & Terraform](#realtime-use-cases-with-lambda--terraform)
   - [Jenkins and terraform integration](#jenkins-and-terraform-integration)
+    - [Getting Started](#getting-started)
+    - [Install Terraform Plugins on Jenkins](#install-terraform-plugins-on-jenkins)
+    - [Writing Jenkins file](#writing-jenkins-file)
+    - [Adding terraform to path](#adding-terraform-to-path)
+    - [Create IAM role and Granting access to terraform through Jenkins](#create-iam-role-and-granting-access-to-terraform-through-jenkins)
+    - [Jenkins Pipeline - Terraform init and apply](#jenkins-pipeline---terraform-init-and-apply)
+    - [Create S3 bucket for remote state using Jenkins pipeline](#create-s3-bucket-for-remote-state-using-jenkins-pipeline)
+    - [Github Webhooks - Auto trigger jenkins job](#github-webhooks---auto-trigger-jenkins-job)
   - [Integrating Ansible with Terraform](#integrating-ansible-with-terraform)
+    - [Install Ansible on Jenkins](#install-ansible-on-jenkins)
+    - [Ansible Playbook to create S3 bucket to store state file](#ansible-playbook-to-create-s3-bucket-to-store-state-file)
+    - [Write Ansible Playbook to run terraform scripts](#write-ansible-playbook-to-run-terraform-scripts)
+    - [Update Jenkinsfile and execute Jenkins job](#update-jenkinsfile-and-execute-jenkins-job)
   - [Tools](#tools)
   - [License](#license)
 
@@ -475,7 +487,6 @@ Deploying lambda using terraform. Lambda function takes two arguments `events` a
 - [terraform lambda func](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)
 - We need to create a [terraform archive](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/archive_file) zip file for hosting function.
 
-
 ## Terraform - Build reusable modules
 
 Terraform Module is a folder containing terraform scripts so its organizable and re-usable. Re-use modules in different environments.
@@ -491,10 +502,134 @@ Terraform Module is a folder containing terraform scripts so its organizable and
 
 ## Realtime Use cases With Lambda & Terraform
 
+> Schedule lambda function to find unused elastic ips (EIPS) and send that information by email using SES. 💡 To send email the `SOURCE_EMAIL` address needs to be verified in `ses`.
+
+<img src="./docs/4.png">
+
+Give the `SOURCE_EMAIL` and `DEST_EMAIL` as env variables, `boto3` is the aws client sdk for python,
+
+```tf
+variables = {
+  SOURCE_EMAIL = "sourceemail@gmail.com",
+  DEST_EMAIL   = "destemail@gmail.com"
+}
+```
+
+> 💡 We can use email template if we need it to be more prettier and tabular format.
+
 ## Jenkins and terraform integration
 
+Jenkins is used in organization as,
+- Automation Server
+- Continuous Integration server
+- Build CI/CD pipeline
+
+### Getting Started
+
+- Create an EC2 instance with t2.micro
+- Open for all port (for dev only but in prod only for specific ips)
+- Create a new key pair
+- Login to the ec2 instance using the private key file and jenkins public instances.
+
+```sh
+> chmod 400 ../some-key.pem # to restrict access to key and only read
+> ssh -i ../some-key.pem ec2-user@15.203.156.137
+```
+
+- Install jre and jenkins,
+
+```sh
+> sudo yum list | grep java-1.8.0
+> sudo yum install java-1.8.0-openjdk # contains both jre and dev kit
+```
+
+- Go to [jenkins.io/downloads](https://www.jenkins.io/downloads) and download centOS version. Run the commands as specified in the instruction.
+
+```sh
+> sudo service jenkins start
+> sudo chkconfig jenkins on # autostarts if its closed
+```
+
+- Go to the instance ip in browser for port `8080` and make the jenkins initial configurations, ex: `http://79.203.45.23:8080`. We need the initial password in the specified location. 
+
+```sh
+> sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+- Install the suggested plugins and then create the admin user.
+
+### Install Terraform Plugins on Jenkins
+
+We need terraform plugin on jenkins to execute terraform commands.
+
+- Go to manage jenkins > manage plugins > available > search for `terraform` > select terraform and install without restart.
+- We need to configure the plugin under global tool configuration > Add terraform > name: `terraform-12`. We can have multiple installers with multiple names. Select install automatically and `terraform 0.12.12 linux (amd64)`. Save.
+
+### Writing Jenkins file
+
+> We need to execute the pipeline on git commit.
+
+- We are going to provision two different environments one is `dev` and `prod`. 
+- In the same workspace, write a `Jenkinsfile` technically this file name can be anything but the convention is to use the Jenkinsfile name. We will be using declarative pipeline which begins with pipeline block.
+- We would have multiple stages with multiple blocks.
+- Lets configure a jenkins job and execute ans see how it works.
+- Go the jenkis server dashboard > new item > name it: ex: `terraform` > type of job is `pipeline` > Save
+- Go to pipeline > location: `Pipeline script from SCM` > Git and the url of the repository. No need of credentials for public repo.
+- Make sure of the `scriptname` of the file.
+
+> 💡 You might get an error if you haven't install github cli locally on jenkins server.
+
+```sh
+> ssh -i ../some-key.pem ec2-user@15.203.156.137
+> sudo yum install git -y
+```
+
+- Save the file and Build Now. It should fail initially stating terraform command not found.
+
+### Adding terraform to path
+
+- Go to `pipeline syntax` which is the pipeline syntax generator which helps us to generate terraform pipeline scripts.
+- Sample step select `tool: Use a tool from predefined tool installation` > tool type: `terraform` > tool: `terraform-12`
+- Generate pipeline script. Copy the script and paste it in the jenkins file. For best practice, declare a function which returns the terraform path.
+
+```txt
+tool name: 'terraform-12', type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
+```
+
+- We need to add this function as environment path, hence in the same pipleine script generator, select `Declarative Directive Generator` > sample directive: `environment` > Name: `PATH` > Value: `${PATH}` > Generate. This will only exist for the current job.
+- Now, append the generated code with terraform path.
+- commit the code and build it.
+
+### Create IAM role and Granting access to terraform through Jenkins
+
+- Now, the jenkins is expecting aws credentials for access terraform. 
+- Create an iam role aws service > for ec2 instance > administrative access > create role.
+- Go to e2 instances > select the ec2 instance and `attach/replace iam role`. Select the newly created role and apply.
+
+### Jenkins Pipeline - Terraform init and apply
+
+- We use the return exit status so that we can continue even it if fails
+
+### Create S3 bucket for remote state using Jenkins pipeline
+
+We will be creating the s3 bucket too using the jenkins pipeline scripts.
+
+### Github Webhooks - Auto trigger jenkins job
+
+- To automatically trigger the jenkins job, go to `github` > `settings` > `webhooks` > `add webhook` > payload url: `http://url-of-jenkins-machine:8080/github-webhook/` > content-type: `application/json` > add web hooks.
+- Select the job > `configure` > `build triggers` > `github hook trigger for GitScm polling`
+- Create a demo commit to test the webhook trigger.
 
 ## Integrating Ansible with Terraform
+
+
+### Install Ansible on Jenkins
+
+### Ansible Playbook to create S3 bucket to store state file
+
+### Write Ansible Playbook to run terraform scripts
+
+### Update Jenkinsfile and execute Jenkins job
 
 ## Tools
 
