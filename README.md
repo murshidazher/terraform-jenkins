@@ -629,6 +629,7 @@ We will be creating the s3 bucket too using the jenkins pipeline scripts.
 > ssh -i ../some-key.pem ec2-user@15.203.156.137
 > sudo yum install python-pip -y
 > sudo pip install ansible 
+> sudo pip install boto3 
 ```
 
 ### Ansible Playbook to create S3 bucket to store state file
@@ -643,6 +644,7 @@ We will be creating the s3 bucket too using the jenkins pipeline scripts.
 - The next step is we need to run terraform commands through anisble playbooks
 - stage `present` will create the aws resources while `absent` will destroy those resources.
 - We use the workspace to separate state files in terraform meaning if its `dev` then the workspace will also be `dev`.
+- `become: True` will execute all the tasks with `sudo` access.
 
 ## Tools
 
