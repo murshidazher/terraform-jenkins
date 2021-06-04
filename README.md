@@ -481,6 +481,13 @@ Deploying lambda using terraform. Lambda function takes two arguments `events` a
 Terraform Module is a folder containing terraform scripts so its organizable and re-usable. Re-use modules in different environments.
 
 - [vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) and [subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet)
+- ami ids are specific to regions so ami id of one region doesnt work for another. So replace it.
+
+```sh
+> cd 04.organizing
+> terraform init
+> terraform apply
+```
 
 ## Realtime Use cases With Lambda & Terraform
 
