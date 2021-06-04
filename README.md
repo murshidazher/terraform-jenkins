@@ -57,10 +57,8 @@
     - [Create S3 bucket for remote state using Jenkins pipeline](#create-s3-bucket-for-remote-state-using-jenkins-pipeline)
     - [Github Webhooks - Auto trigger jenkins job](#github-webhooks---auto-trigger-jenkins-job)
   - [Integrating Ansible with Terraform](#integrating-ansible-with-terraform)
-    - [Install Ansible on Jenkins](#install-ansible-on-jenkins)
     - [Ansible Playbook to create S3 bucket to store state file](#ansible-playbook-to-create-s3-bucket-to-store-state-file)
     - [Write Ansible Playbook to run terraform scripts](#write-ansible-playbook-to-run-terraform-scripts)
-    - [Update Jenkinsfile and execute Jenkins job](#update-jenkinsfile-and-execute-jenkins-job)
   - [Tools](#tools)
   - [License](#license)
 
@@ -622,14 +620,29 @@ We will be creating the s3 bucket too using the jenkins pipeline scripts.
 
 ## Integrating Ansible with Terraform
 
+- Ansible is an opensource and popular configuration management tool in devops space.
+- The benefits on wrapping ansible on top of terraform commands, we cant create s3 buckets inside the terraform script so we need to create this bucket outside the terraform script. We can simply the remote state bucket creating by using anisble script.
+- Since we can use terraform variables in the remote state bucket, if we hardcode the name then we cant differentiate the dev state and prod state. We can also use ansible to dynamically change these.
+- Lets, install ansible on the server instance.
 
-### Install Ansible on Jenkins
+```sh
+> ssh -i ../some-key.pem ec2-user@15.203.156.137
+> sudo yum install python-pip -y
+> sudo pip install ansible 
+```
 
 ### Ansible Playbook to create S3 bucket to store state file
 
+- We need to create an ansible playbook to create the bucket
+- we write playbooks using yaml, we need to specify where to execute the scripts.
+- Google for `ansible s3 bucket`, this [link](https://docs.ansible.com/ansible/2.3/s3_bucket_module.html).
+- We need `boto3` internally to create s3 buckets.
+
 ### Write Ansible Playbook to run terraform scripts
 
-### Update Jenkinsfile and execute Jenkins job
+- The next step is we need to run terraform commands through anisble playbooks
+- stage `present` will create the aws resources while `absent` will destroy those resources.
+- We use the workspace to separate state files in terraform meaning if its `dev` then the workspace will also be `dev`.
 
 ## Tools
 
